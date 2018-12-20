@@ -12,15 +12,16 @@ public class Retroserver {
     public static final String base_url = "https://10a5d41b.ngrok.io/index" +
             ".php/android_codeigniter_crud/";
 
-    private static Retrofit retrofit ;
+    private static Retrofit retrofit;
 
-    public Retrofit getClient() {
-        if ( retrofit == null ){
+    public static Retrofit getClient() {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(base_url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
+
         return retrofit;
     }
 }
