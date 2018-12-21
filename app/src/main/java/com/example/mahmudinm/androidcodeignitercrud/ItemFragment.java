@@ -2,7 +2,9 @@ package com.example.mahmudinm.androidcodeignitercrud;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +26,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -50,6 +54,16 @@ public class ItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View x = inflater.inflate(R.layout.fragment_item, container, false);
+
+        FloatingActionButton fab = (FloatingActionButton) x.findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ItemActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_ADD);
+            }
+        });
 
 
         progressDialog = new ProgressDialog(getActivity());
@@ -80,10 +94,10 @@ public class ItemFragment extends Fragment {
 
                 mItems = response.body().getData();
 
-                Log.d("response", "onResponse: " + mItems);
-
                 mAdapter = new AdapterItem(mItems);
                 mRecycler.setAdapter(mAdapter);
+//                mRecycler.addOnItemTouchListener();
+
                 mAdapter.notifyDataSetChanged();
 
             }
@@ -100,5 +114,20 @@ public class ItemFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_ADD: {
+                if (resultCode == RESULT_OK && null != data) {
+                    if (data.getStringExtra("refreshFlag").equals("1")) {
+                        load();
+                    }
+                }
+                break;
+            }
+        }
+    }
 
 }
