@@ -9,8 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Retroserver {
 
-    public static final String base_url = "https://10a5d41b.ngrok.io/index" +
-            ".php/android_codeigniter_crud/";
+//    public static final String base_url = "https://10a5d41b.ngrok.io/index" +
+//            ".php/android_codeigniter_crud/";
+    public static final String base_url = "https://b56f9618.ngrok.io/android_crud_retrofit/api/";
+//   public static final String base_url = "https://10a5d41b.ngrok.io/hakiki95tutorial/";
 
     private static Retrofit retrofit;
 

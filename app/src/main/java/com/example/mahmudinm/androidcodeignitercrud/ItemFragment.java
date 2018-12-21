@@ -80,6 +80,8 @@ public class ItemFragment extends Fragment {
 
                 mItems = response.body().getData();
 
+                Log.d("response", "onResponse: " + mItems);
+
                 mAdapter = new AdapterItem(mItems);
                 mRecycler.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
@@ -90,7 +92,7 @@ public class ItemFragment extends Fragment {
             public void onFailure(Call<ItemListResponse> call, Throwable t) {
                 progressDialog.hide();
                 Toast.makeText(getActivity(), "gagal ambil data", Toast.LENGTH_SHORT).show();
-                Log.d("Error", "onFailure: " );
+                
 
             }
         });
