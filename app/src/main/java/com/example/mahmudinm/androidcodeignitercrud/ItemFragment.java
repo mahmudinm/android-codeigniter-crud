@@ -19,6 +19,7 @@ import com.example.mahmudinm.androidcodeignitercrud.api.ApiRequest;
 import com.example.mahmudinm.androidcodeignitercrud.api.Retroserver;
 import com.example.mahmudinm.androidcodeignitercrud.api.response.ItemListResponse;
 import com.example.mahmudinm.androidcodeignitercrud.model.Item;
+import com.example.mahmudinm.androidcodeignitercrud.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,16 @@ public class ItemFragment extends Fragment {
 
                 mAdapter = new AdapterItem(mItems);
                 mRecycler.setAdapter(mAdapter);
-//                mRecycler.addOnItemTouchListener();
+                mRecycler.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new
+                        RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Item item = mAdapter.getItem(position);
+                                Intent intent = new Intent(getActivity(), ItemActivity.class);
+                                intent.putExtra("item", item);
+                                startActivityForResult(intent, REQUEST_CODE_EDIT);
+                            }
+                        }));
 
                 mAdapter.notifyDataSetChanged();
 
@@ -120,6 +130,14 @@ public class ItemFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_CODE_ADD: {
+                if (resultCode == RESULT_OK && null != data) {
+                    if (data.getStringExtra("refreshFlag").equals("1")) {
+                        load();
+                    }
+                }
+                break;
+            }
+            case REQUEST_CODE_EDIT: {
                 if (resultCode == RESULT_OK && null != data) {
                     if (data.getStringExtra("refreshFlag").equals("1")) {
                         load();

@@ -95,6 +95,86 @@ public class ItemActivity extends AppCompatActivity {
                 });
             }
         });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog.setMessage("Loading ...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+                refreshFlag = "1";
+                String nama = txtNama.getText().toString();
+                String harga = txtHarga.getText().toString();
+
+                ApiRequest api = Retroserver.getClient().create(ApiRequest.class);
+                Call<StatusResponse> putItem = api.putItem(id, nama, harga);
+                putItem.enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        progressDialog.dismiss();
+                        String status = response.body().getStatus();
+                        if (status.equals("success")) {
+                            Toast.makeText(ItemActivity.this, "Berhasil Update", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(ItemActivity.this, "Gagal Update", Toast.LENGTH_SHORT)
+                                    .show();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Toast.makeText(ItemActivity.this, "Error Update", Toast.LENGTH_SHORT)
+                                .show();
+                        finish();
+
+                    }
+                });
+
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog.setMessage("Loading ...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+                refreshFlag = "1";
+
+                ApiRequest api = Retroserver.getClient().create(ApiRequest.class);
+                Call<StatusResponse> deleteItem = api.deleteItem(id);
+                deleteItem.enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        progressDialog.dismiss();
+                        String status = response.body().getStatus();
+                        if (status.equals("success")) {
+                            Toast.makeText(ItemActivity.this, "Berhasil Delete", Toast.LENGTH_SHORT)
+                                    .show();
+                            finish();
+                        } else {
+                            Toast.makeText(ItemActivity.this, "Gagal Delete", Toast.LENGTH_SHORT)
+                                    .show();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Toast.makeText(ItemActivity.this, "Error Delete", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+
+            }
+        });
+
     }
 
     @Override

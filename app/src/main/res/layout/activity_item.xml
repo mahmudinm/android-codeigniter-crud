@@ -51,8 +51,8 @@
         android:weightSum="1.0">
 
         <Button
-            android:id="@+id/update"
-            android:text="Update"
+            android:id="@+id/delete"
+            android:text="Delete"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:layout_width="0dip"
@@ -60,8 +60,8 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/delete"
-            android:text="Delete"
+            android:id="@+id/update"
+            android:text="Update"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:layout_width="0dip"
