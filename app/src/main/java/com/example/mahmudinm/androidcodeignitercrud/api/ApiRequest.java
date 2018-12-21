@@ -31,6 +31,7 @@ public interface ApiRequest {
     Call<StatusResponse> putItem(@Field("id") String id,
                                  @Field("nama") String nama,
                                  @Field("harga") String harga);
+
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "item", hasBody = true)
     Call<StatusResponse> deleteItem(@Field("id") String id);

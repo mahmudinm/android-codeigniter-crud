@@ -68,7 +68,7 @@ public class ItemActivity extends AppCompatActivity {
                 refreshFlag = "1";
 
                 String nama = txtNama.getText().toString();
-                String harga = txtNama.getText().toString();
+                String harga = txtHarga.getText().toString();
 
                 ApiRequest api = Retroserver.getClient().create(ApiRequest.class);
                 Call<StatusResponse> postItem = api.postItem(nama, harga);
