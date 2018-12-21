@@ -28,6 +28,7 @@
         <EditText
             android:id="@+id/txtHarga"
             android:hint="Harga Barang"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
